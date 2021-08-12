@@ -1,0 +1,23 @@
+{
+  "name": "lilhat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sagar-adval/lilhat.git"
+  },
+  "author": "sagar adval",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sagar-adval/lilhat/issues"
+  },
+  "homepage": "https://github.com/sagar-adval/lilhat#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
