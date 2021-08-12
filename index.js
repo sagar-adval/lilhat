@@ -1,14 +1,13 @@
-const express = require('express');
-const config = require('./config/app');
+const express = require("express");
+const config = require("./config/app");
+const router = require("./routes");
 
 const app = express();
 
+app.use(router);
+
 const port = config.appPort;
 
-app.get('/home', (req, res) => {
-    return res.send('Home');
-});
-
 app.listen(port, () => {
-    console.log(`Server started at port ${port}`);
+  console.log(`Server started at port ${port}`);
 });
