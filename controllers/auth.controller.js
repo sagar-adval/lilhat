@@ -2,6 +2,7 @@ const User = require("../models").User;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("../config/app");
+const {validationResult} = require('express-validator');
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -26,6 +27,7 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
+
   const { email } = req.body;
   try {
     //Find the user
