@@ -5,7 +5,6 @@ const config = require("../config/app");
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-
   try {
     //Find the user
     const user = await User.findOne({ where: { email } });
@@ -26,7 +25,29 @@ const login = async (req, res) => {
   }
 };
 
-const register = async (req, res) => {};
+const register = async (req, res) => {
+  const { email } = req.body;
+  try {
+    //Find the user
+    const user = await User.findOne({ where: { email } });
+
+    //Check if user exists
+    if (user) return res.status(409).send({ message: "User already exists!" });
+
+    //Create user
+    req.body.password = await hashPassword(req.body.password);
+    console.log(req.body.password);
+    const newUser = await User.create(req.body);
+
+    //Generate auth token
+    const userWithToken = generateToken(newUser.get({ raw: true }));
+    return res.send(userWithToken);
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({ message: error.message });
+  }
+};
 
 const generateToken = (user) => {
   delete user.password;
@@ -36,6 +57,10 @@ const generateToken = (user) => {
   });
 
   return { ...user, ...{ token } };
+};
+
+const hashPassword = async (password) => {
+  return await bcrypt.hashSync(password, 10);
 };
 
 module.exports = { login, register };
